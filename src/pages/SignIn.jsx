@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import OAuth from '../components/OAuth'
 
 
 function SignIn() {
@@ -30,7 +31,7 @@ function SignIn() {
 
       const userCredentials = await signInWithEmailAndPassword(auth, email, password)
 
-      if(userCredentials.user){
+      if (userCredentials.user) {
         navigate('/')
       }
 
@@ -83,10 +84,9 @@ function SignIn() {
           </div>
         </form>
 
-        <Link to='/sign-up' className='registerLink'>Sign Up</Link>
+        <OAuth />
 
-
-
+        <Link to='/sign-up' className='registerLink'>Sign Up Instead</Link>
       </div>
     </>
   )

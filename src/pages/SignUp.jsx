@@ -6,6 +6,7 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
+import OAuth from '../components/OAuth'
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
@@ -101,7 +102,9 @@ function SignUp() {
           </div>
         </form>
 
-        <Link to='/sign-in' className='registerLink'>Sign In</Link>
+
+        <OAuth />
+        <Link to='/sign-in' className='registerLink'>Sign In Instead</Link>
 
 
 
