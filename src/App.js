@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Navbar from './components/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 import Explore from './pages/Explore';
+import Category from './pages/Category';
 import ForgotPassword from './pages/ForgotPassword';
 import Offers from './pages/Offers';
 import Profile from './pages/Profile';
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Explore />} />
           <Route exact path='/offers' element={<Offers />} />
+          <Route exact path='/category/:categoryName' element={<Category />} />
           <Route exact path='/profile' element={<PrivateRoute />} >
             <Route exact path='/profile' element={<Profile />} />
           </Route>
