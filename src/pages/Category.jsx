@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { collection, getDocs, query, where, orderBy, limit, startAfter } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+  startAfter,
+} from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
+import ListingItem from '../components/ListingItem'
 
 function Category() {
   const [listings, setListings] = useState(null)
@@ -14,26 +23,36 @@ function Category() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        //Get Reference
-        const listingRef = collection(db, 'listings')
-        //Create a query
-        const q = query(listingRef, where('type', '==', params.categoryName, orderBy('timestamp', 'desc'), limit(10)))
-        //Execute query
+        // Get reference
+        const listingsRef = collection(db, 'listings')
+
+        // Create a query
+        const q = query(
+          listingsRef,
+          where('type', '==', params.categoryName),
+          orderBy('timestamp', 'desc'),
+          limit(10)
+        )
+
+        // Execute query
         const querySnap = await getDocs(q)
 
         const listings = []
+
         querySnap.forEach((doc) => {
           return listings.push({
             id: doc.id,
             data: doc.data(),
           })
         })
+
         setListings(listings)
         setLoading(false)
       } catch (error) {
-        toast.error('could not fetch listings')
+        toast.error('Could not fetch listings')
       }
     }
+
     fetchListings()
   }, [params.categoryName])
 
@@ -54,7 +73,11 @@ function Category() {
           <main>
             <ul className='categoryListings'>
               {listings.map((listing) => (
-                <h3 key={listing.id}>{listing.data.name}</h3>
+                <ListingItem
+                  listing={listing.data}
+                  id={listing.id}
+                  key={listing.id}
+                />
               ))}
             </ul>
           </main>
